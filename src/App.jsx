@@ -66,17 +66,17 @@ function replaceBrandInDocument(doc) {
     if (label === 'Behance Link') {
       link.setAttribute('aria-label', 'Facebook Link')
       label = 'Facebook Link'
-      const svg = link.querySelector('.social-icon.w-embed')
-      if (svg) {
-        svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"></path></svg>'
-      }
+      link.querySelectorAll('.social-icon.w-embed').forEach((svg) => {
+        svg.innerHTML =
+          '<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"></path></svg>'
+      })
     } else if (label === 'Dribbble Link' || label === 'Website Link') {
       link.setAttribute('aria-label', 'Phone Link')
       label = 'Phone Link'
-      const svg = link.querySelector('.social-icon.w-embed')
-      if (svg) {
-        svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor"><path d="M6.62,10.79c1.44,2.83,3.76,5.14,6.59,6.59l2.2-2.2c0.27-0.27,0.67-0.36,1.02-0.24c1.12,0.37,2.33,0.57,3.57,0.57c0.55,0,1,0.45,1,1V20c0,0.55-0.45,1-1,1C10.75,21,3,13.25,3,4c0-0.55,0.45-1,1-1h3.5c0.55,0,1,0.45,1,1c0,1.24,0.2,2.45,0.57,3.57c0.11,0.35,0.03,0.75-0.25,1.02L6.62,10.79z"></path></svg>'
-      }
+      link.querySelectorAll('.social-icon.w-embed').forEach((svg) => {
+        svg.innerHTML =
+          '<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor"><path d="M6.62,10.79c1.44,2.83,3.76,5.14,6.59,6.59l2.2-2.2c0.27-0.27,0.67-0.36,1.02-0.24c1.12,0.37,2.33,0.57,3.57,0.57c0.55,0,1,0.45,1,1V20c0,0.55-0.45,1-1,1C10.75,21,3,13.25,3,4c0-0.55,0.45-1,1-1h3.5c0.55,0,1,0.45,1,1c0,1.24,0.2,2.45,0.57,3.57c0.11,0.35,0.03,0.75-0.25,1.02L6.62,10.79z"></path></svg>'
+      })
     }
 
     // Apply specific links from config
