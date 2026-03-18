@@ -28,10 +28,9 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: design-2/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install and Build 🔧
-        working-directory: design-2
         run: |
           npm install
           npm run build
@@ -42,7 +41,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './design-2/dist'
+          path: './dist'
 
   deploy:
     environment:
