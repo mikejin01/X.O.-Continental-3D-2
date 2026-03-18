@@ -48,6 +48,15 @@ function replaceBrandInDocument(doc) {
       img.setAttribute('src', fixedSrc)
     }
   })
+
+  doc.querySelectorAll('a[aria-label="Behance Link"]').forEach((link) => {
+    link.setAttribute('aria-label', 'Facebook Link')
+    link.setAttribute('href', 'https://www.facebook.com/')
+    const svgContent = link.querySelector('.social-icon.w-embed')
+    if (svgContent) {
+      svgContent.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"></path></svg>'
+    }
+  })
 }
 
 function WebflowPage({ src }) {
