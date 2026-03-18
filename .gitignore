@@ -24,6 +24,5 @@ dist-ssr
 *.sw?
 
 # Original design folders (if you want to keep them local but not in repo)
-design-2-original/
-References/
-design-1/
+# webflow-original/
+# References/
