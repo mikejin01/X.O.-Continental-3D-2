@@ -64,7 +64,7 @@ function WebflowPage({ src }) {
     <iframe
       ref={frameRef}
       title={src}
-      src={src}
+      src={`${import.meta.env.BASE_URL}${src.startsWith('/') ? src.slice(1) : src}`}
       className="webflow-frame"
       loading="eager"
       referrerPolicy="no-referrer-when-downgrade"
