@@ -6,7 +6,7 @@ const BRAND_PATTERN = /\bUnusually\b/g
 const COPYRIGHT_PATTERN = /\(2010-26©\)/g
 
 function replaceBrandText(value) {
-  return value.replace(BRAND_PATTERN, BRAND_NAME).replace(COPYRIGHT_PATTERN, '2024-2026©')
+  return value.replace(BRAND_PATTERN, BRAND_NAME).replace(COPYRIGHT_PATTERN, '2025-2026©')
 }
 
 function replaceBrandInDocument(doc) {
