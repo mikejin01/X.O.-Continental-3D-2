@@ -3,9 +3,10 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 const BRAND_NAME = 'X.O. Continental'
 const BRAND_PATTERN = /\bUnusually\b/g
+const COPYRIGHT_PATTERN = /\(2010-26©\)/g
 
 function replaceBrandText(value) {
-  return value.replace(BRAND_PATTERN, BRAND_NAME)
+  return value.replace(BRAND_PATTERN, BRAND_NAME).replace(COPYRIGHT_PATTERN, '2024-2026©')
 }
 
 function replaceBrandInDocument(doc) {
