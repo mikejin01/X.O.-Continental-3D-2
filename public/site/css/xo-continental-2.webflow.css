@@ -2868,10 +2868,14 @@ blockquote {
   border: 1px solid #70707026;
   border-radius: 1rem;
   grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto;
   width: 100%;
   margin-bottom: 1rem;
   padding: .5rem .5rem .5rem 1rem;
+}
+
+.case-study-content-grid > .case-study-item:last-child {
+  justify-content: flex-end;
 }
 
 .case-logo {
