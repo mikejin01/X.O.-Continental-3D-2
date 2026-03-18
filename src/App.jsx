@@ -39,6 +39,14 @@ function replaceBrandInDocument(doc) {
     }
     node = walker.nextNode()
   }
+
+  doc.querySelectorAll('img').forEach((img) => {
+    const src = img.getAttribute('src')
+    if (src && src.startsWith('/client%20logos/')) {
+      const fixedSrc = `${import.meta.env.BASE_URL}${src.slice(1)}`
+      img.setAttribute('src', fixedSrc)
+    }
+  })
 }
 
 function WebflowPage({ src }) {
