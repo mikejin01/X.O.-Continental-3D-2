@@ -2177,6 +2177,10 @@ blockquote {
   align-items: center;
 }
 
+.background-video.testimonial video {
+  object-position: 50% 30%;
+}
+
 .video-overlay {
   z-index: 1;
   background-color: #0009;
