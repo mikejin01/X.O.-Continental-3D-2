@@ -42,13 +42,6 @@ function replaceBrandInDocument(doc) {
     }
   })
 
-  // Replace Quick Help section image with team photo
-  const faqImg = doc.querySelector('.faq-image-wrap img.cover-image.is-faq')
-  if (faqImg) {
-    faqImg.setAttribute('src', `${BASE}XO-Team.avif`)
-    faqImg.setAttribute('srcset', '')
-    faqImg.setAttribute('alt', 'X.O. Continental Team')
-  }
 
   const SOCIAL_LINKS = {
     'Instagram Link': 'https://www.instagram.com/x.o.continental/',
