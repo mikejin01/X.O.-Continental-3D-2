@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { injectHero } from './heroInjector'
 
 const BASE = import.meta.env.BASE_URL
@@ -94,6 +94,11 @@ function replaceBrandInDocument(doc) {
 export default function HomePage() {
   const frameRef = useRef(null)
   const [ready, setReady] = useState(false)
+  const [dismissed, setDismissed] = useState(false)
+
+  const handleTransitionEnd = useCallback(() => {
+    if (ready) setDismissed(true)
+  }, [ready])
 
   useEffect(() => {
     const frame = frameRef.current
@@ -113,50 +118,47 @@ export default function HomePage() {
 
   return (
     <>
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 9999,
-          background: '#000',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '20px',
-          transition: 'opacity 0.6s ease',
-          opacity: ready ? 0 : 1,
-          pointerEvents: ready ? 'none' : 'all',
-        }}
-      >
-        <img
-          src={`${BASE}site/images/xo-logo.png`}
-          alt=""
+      {!dismissed && (
+        <div
+          onTransitionEnd={handleTransitionEnd}
           style={{
-            width: '48px',
-            height: '48px',
-            animation: 'xo-spin 1.2s ease-in-out infinite',
-          }}
-        />
-        <span
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '13px',
-            fontWeight: 500,
-            color: 'rgba(255,255,255,0.5)',
-            letterSpacing: '3px',
-            textTransform: 'uppercase',
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: '#000',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '20px',
+            transition: 'opacity 0.6s ease',
+            opacity: ready ? 0 : 1,
+            pointerEvents: ready ? 'none' : 'all',
           }}
         >
-          Loading
-        </span>
-        <style>{`
-          @keyframes xo-spin {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-          }
-        `}</style>
-      </div>
+          <img
+            src={`${BASE}site/images/xo-logo.png`}
+            alt=""
+            style={{
+              width: '48px',
+              height: '48px',
+              animation: 'xo-spin 1.2s ease-in-out infinite',
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '13px',
+              fontWeight: 500,
+              color: 'rgba(255,255,255,0.5)',
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+            }}
+          >
+            Loading
+          </span>
+        </div>
+      )}
       <iframe
         ref={frameRef}
         title="Home"
