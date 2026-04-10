@@ -119,11 +119,44 @@ export default function HomePage() {
           inset: 0,
           zIndex: 9999,
           background: '#000',
-          transition: 'opacity 0.5s ease',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '20px',
+          transition: 'opacity 0.6s ease',
           opacity: ready ? 0 : 1,
           pointerEvents: ready ? 'none' : 'all',
         }}
-      />
+      >
+        <img
+          src={`${BASE}site/images/xo-logo.png`}
+          alt=""
+          style={{
+            width: '48px',
+            height: '48px',
+            animation: 'xo-spin 1.2s ease-in-out infinite',
+          }}
+        />
+        <span
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '13px',
+            fontWeight: 500,
+            color: 'rgba(255,255,255,0.5)',
+            letterSpacing: '3px',
+            textTransform: 'uppercase',
+          }}
+        >
+          Loading
+        </span>
+        <style>{`
+          @keyframes xo-spin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+          }
+        `}</style>
+      </div>
       <iframe
         ref={frameRef}
         title="Home"
