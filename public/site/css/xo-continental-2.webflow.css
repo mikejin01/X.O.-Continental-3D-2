@@ -2051,6 +2051,7 @@ blockquote {
   justify-content: center;
   align-items: flex-start;
   display: flex;
+  height: 100%;
 }
 
 .member-content-block {
@@ -2066,7 +2067,7 @@ blockquote {
 .team-members-grid {
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
-  grid-template-rows: auto auto;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   width: 100%;
 }
@@ -4232,22 +4233,67 @@ blockquote {
 .our-story-wrap {
   width: 100%;
   max-width: 54rem;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .our-story-content {
   width: 100%;
-  max-width: 60rem;
+  max-width: none;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+}
+
+.section-about-story .intro-component-grid {
+  grid-template-columns: 1fr;
+}
+
+.our-story-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 3rem;
+  align-items: center;
+}
+
+.our-story-text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.our-story-photo-col {
+  height: 100%;
+}
+
+.outlined-image-wrapper.story-photo {
+  height: 100%;
+}
+
+.outlined-image-wrapper.story-photo .cover-image-wrap {
+  height: 100%;
+}
+
+.outlined-image-wrapper.story-photo .cover-image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.section-about-values .padding-section-large {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.section-about-values .spacer-xlarge {
+  padding-top: 1.5rem;
 }
 
 .values-component-grid {
   grid-column-gap: 2rem;
-  grid-row-gap: 2rem;
-  grid-template-rows: auto;
-  place-items: start;
+  grid-row-gap: 1.5rem;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
+  place-items: stretch;
   width: 100%;
 }
 
@@ -4255,8 +4301,14 @@ blockquote {
   padding: var(--_sizes---spacer--xxsmall);
   border: 1px solid var(--neutral-color--tertiary-neutral);
   border-radius: var(--_sizes---border-radius--xlarge);
-  position: sticky;
-  top: 7rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.outlined-image-wrapper .cover-image-wrap {
+  flex: none;
 }
 
 .cover-image-wrap {
@@ -4271,8 +4323,10 @@ blockquote {
 }
 
 .value-inner-grid {
-  grid-template-rows: auto auto auto auto;
-  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
   width: 100%;
   height: 100%;
 }
@@ -4372,11 +4426,21 @@ blockquote {
   border-radius: var(--_sizes---border-radius--xlarge);
 }
 
+.team-members-grid > .team-member-wrapper {
+  align-self: stretch !important;
+}
+
+.member-inner-grid > .member-content-item:first-child {
+  min-height: 0;
+  overflow: hidden;
+}
+
 .member-inner-grid {
   grid-column-gap: 1.5rem;
   grid-row-gap: 1.5rem;
   grid-template-rows: auto;
   width: 100%;
+  height: 100%;
 }
 
 .member-content-grid {
@@ -5892,6 +5956,15 @@ blockquote {
     grid-row-gap: 1rem;
   }
 
+  .our-story-split {
+    grid-template-columns: 1fr;
+    grid-row-gap: 2rem;
+  }
+
+  .our-story-photo-col {
+    height: 300px;
+  }
+
   .intro-text, .intro-text.story {
     font-size: 3rem;
   }
@@ -6163,6 +6236,15 @@ blockquote {
   .coming-soon-form-wrap {
     width: 80vw;
     max-width: 80vw;
+  }
+
+  .value-inner-grid {
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 1fr;
+  }
+
+  #w-node-_8612a4e7-2e54-e21b-4c7e-ec1d3840ffa3-ee6c2b13 .cover-image-wrap {
+    height: auto;
   }
 }
 
@@ -7476,7 +7558,6 @@ blockquote {
 
 #w-node-_80ea431a-2dbc-2ca3-f98d-f5bf45de1d9b-ee6c2b13 {
   grid-area: 2 / 1 / 3 / 3;
-  justify-self: center;
 }
 
 #w-node-ca6df284-01fa-d28b-64fc-b26bcb70bab3-ee6c2b13 {
@@ -7485,7 +7566,15 @@ blockquote {
 }
 
 #w-node-_8612a4e7-2e54-e21b-4c7e-ec1d3840ffa3-ee6c2b13 {
-  align-self: start;
+  align-self: stretch;
+  grid-column: 1 / -1;
+}
+#w-node-_8612a4e7-2e54-e21b-4c7e-ec1d3840ffa3-ee6c2b13 .cover-image-wrap {
+  height: 600px;
+}
+#w-node-_8612a4e7-2e54-e21b-4c7e-ec1d3840ffa3-ee6c2b13 .cover-image {
+  object-fit: cover;
+  object-position: 60% 45%;
 }
 
 #w-node-_3254fa2f-0343-7b75-90c4-83ee259c13d8-ee6c2b13 {
