@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { injectHero } from './heroInjector'
 
 const BASE = import.meta.env.BASE_URL
@@ -93,6 +93,7 @@ function replaceBrandInDocument(doc) {
 
 export default function HomePage() {
   const frameRef = useRef(null)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const frame = frameRef.current
@@ -103,7 +104,7 @@ export default function HomePage() {
       if (!doc) return
 
       replaceBrandInDocument(doc)
-      injectHero(doc, frame.contentWindow)
+      injectHero(doc, frame.contentWindow, () => setReady(true))
     }
 
     frame.addEventListener('load', handleLoad)
@@ -111,13 +112,26 @@ export default function HomePage() {
   }, [])
 
   return (
-    <iframe
-      ref={frameRef}
-      title="Home"
-      src={`${BASE}site/index.html`}
-      className="webflow-frame"
-      loading="eager"
-      referrerPolicy="no-referrer-when-downgrade"
-    />
+    <>
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          background: '#000',
+          transition: 'opacity 0.5s ease',
+          opacity: ready ? 0 : 1,
+          pointerEvents: ready ? 'none' : 'all',
+        }}
+      />
+      <iframe
+        ref={frameRef}
+        title="Home"
+        src={`${BASE}site/index.html`}
+        className="webflow-frame"
+        loading="eager"
+        referrerPolicy="no-referrer-when-downgrade"
+      />
+    </>
   )
 }

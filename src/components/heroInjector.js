@@ -367,7 +367,7 @@ const OVERLAY_HTML = `
    MAIN INJECTOR
    ═══════════════════════════════════════════ */
 
-export function injectHero(doc, win) {
+export function injectHero(doc, win, onReady) {
   const heroSection = doc.querySelector('.section-home-header')
   if (!heroSection) return
 
@@ -399,10 +399,13 @@ export function injectHero(doc, win) {
     navbar.style.transform = 'translateY(-20px)'
   }
 
-  // 5. Run entrance animation immediately (don't wait for SDK)
+  // 5. Signal ready — hero is injected and safe to reveal
+  if (onReady) onReady()
+
+  // 6. Run entrance animation immediately (don't wait for SDK)
   runOverlayEntrance(win, overlay, navbar)
 
-  // 6. Load UnicornStudio SDK in background
+  // 7. Load UnicornStudio SDK in background
   const unicornEl = overlay.querySelector('.xo-hero-unicorn')
   if (unicornEl) unicornEl.style.opacity = '0'
 
