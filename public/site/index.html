@@ -224,11 +224,12 @@
             </div>
             <div class="gsap-image-container">
               <div class="gsap-image-block">
-                <div class="gsap-image-item"><img alt="SEO Strategy" src="images/service-seo.jpg" class="gsap-image"></div>
-                <div class="gsap-image-item"><img alt="Social Media Marketing" src="images/service-social.jpg" class="gsap-image"></div>
-                <div class="gsap-image-item"><img alt="Branding and Identity" src="images/service-branding.jpg" class="gsap-image"></div>
-                <div class="gsap-image-item"><img alt="Web Development" src="images/service-webdev.jpg" class="gsap-image"></div>
-                <div class="gsap-image-item"><img alt="Google Business Profile" src="images/service-gbp.jpg" class="gsap-image"></div>
+                <div class="gsap-image-item" data-type="video"><video src="../cube-0.mp4" class="gsap-image" muted playsinline preload="auto"></video></div>
+                <div class="gsap-image-item"><img alt="XO Continental" src="../cube-1.avif" class="gsap-image"></div>
+                <div class="gsap-image-item"><img alt="XO Continental" src="../cube-2.avif" class="gsap-image"></div>
+                <div class="gsap-image-item"><img alt="XO Continental" src="../cube-3.avif" class="gsap-image"></div>
+                <div class="gsap-image-item"><img alt="XO Continental" src="../cube-4.avif" class="gsap-image"></div>
+                <div class="gsap-image-item"><img alt="XO Continental" src="../cube-5.avif" class="gsap-image"></div>
               </div>
             </div>
           </div>
@@ -1717,11 +1718,13 @@ $(".gsap-component").each(function () {
   let template = $(this).find(".gsap-image-wrap");
   let cmsItem = $(this).find(".gsap-image-item");
   let activeItem = cmsItem.first(); // Start with the first CMS item
-  // Function to get the next image URL in the CMS list
-  function getNextUrl() {
+  // Function to get the next item (image or video) in the CMS list
+  function getNextItem() {
     activeItem = activeItem.next(); // Move to next item
     if (activeItem.length === 0) activeItem = cmsItem.first(); // Loop back to first
-    return activeItem.find("img").attr("src"); // Return image URL
+    var isVideo = activeItem.attr("data-type") === "video";
+    var src = isVideo ? activeItem.find("video").attr("src") : activeItem.find("img").attr("src");
+    return { src: src, isVideo: isVideo };
   }
   // Store mouse position
   let xPosition = 0;
@@ -1734,7 +1737,14 @@ $(".gsap-component").each(function () {
       yPosition = e.pageY;
       // Clone image template and add to the visual wrapper
       let imageWrap = template.clone().appendTo(visualWrap);
-      imageWrap.find("img").attr("src", getNextUrl()); // Set image source
+      let nextItem = getNextItem();
+      if (nextItem.isVideo) {
+        var videoEl = $('<video autoplay loop muted playsinline class="placeholder-image"></video>');
+        videoEl.attr("src", nextItem.src);
+        imageWrap.find("img").replaceWith(videoEl);
+      } else {
+        imageWrap.find("img").attr("src", nextItem.src); // Set image source
+      }
       // Create GSAP timeline
       let tl = gsap.timeline({
         onComplete: () => { imageWrap.remove(); } // Remove image after animation
@@ -1747,7 +1757,7 @@ $(".gsap-component").each(function () {
         { opacity: 1, scale: 1, ease: "power3.out" }
       );
       // Animate image fading out and moving down
-      tl.to(imageWrap.find("img"), { opacity: 0, y: "8rem", duration: 0.5 });
+      tl.to(imageWrap.find(".placeholder-image"), { opacity: 0, y: "8rem", duration: 0.5 });
     }
   });
 });
