@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import HomePage from './components/HomePage'
 
 const BRAND_NAME = 'X.O. Continental'
 const BRAND_PATTERN = /\bUnusually\b/g
@@ -50,6 +51,8 @@ function replaceBrandInDocument(doc) {
     }
   })
 
+
+
   // Social links configuration
   const SOCIAL_LINKS = {
     'Instagram Link': 'https://www.instagram.com/x.o.continental/',
@@ -84,6 +87,31 @@ function replaceBrandInDocument(doc) {
       link.setAttribute('href', SOCIAL_LINKS[label])
     }
   })
+
+  // Update footer credits
+  const footerContentBlock = doc.querySelector('.footer-bottom .footer-content-block')
+  if (footerContentBlock) {
+    const blocks = footerContentBlock.querySelectorAll('.footer-block')
+    // Update copyright year
+    const copyrightText = footerContentBlock.querySelector('.footer-text')
+    if (copyrightText && copyrightText.textContent.includes('©')) {
+      copyrightText.textContent = '© 2026 X.O. Continental'
+    }
+    // Remove "Powered by Webflow" block and replace "Created by Flowaze" with "Created by Mike Jin"
+    blocks.forEach((block) => {
+      const text = block.querySelector('.footer-text')
+      const link = block.querySelector('.footer-link')
+      if (text && text.textContent.trim() === 'Powered by') {
+        block.remove()
+      } else if (text && text.textContent.trim() === 'Created by' && link) {
+        link.setAttribute('href', '#')
+        link.removeAttribute('target')
+        link.querySelectorAll('.link-text-item').forEach((item) => {
+          item.textContent = 'Mike Jin'
+        })
+      }
+    })
+  }
 }
 
 function WebflowPage({ src }) {
@@ -120,7 +148,7 @@ function WebflowPage({ src }) {
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<WebflowPage src="/site/index.html" />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<WebflowPage src="/site/about.html" />} />
       <Route path="/contact" element={<WebflowPage src="/site/contact.html" />} />
       <Route path="/services" element={<WebflowPage src="/site/services.html" />} />
