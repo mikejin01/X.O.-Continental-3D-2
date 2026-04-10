@@ -399,14 +399,26 @@ export function injectHero(doc, win) {
     navbar.style.transform = 'translateY(-20px)'
   }
 
-  // 5. Load UnicornStudio SDK
+  // 5. Run entrance animation immediately (don't wait for SDK)
+  runOverlayEntrance(win, overlay, navbar)
+
+  // 6. Load UnicornStudio SDK in background
+  const unicornEl = overlay.querySelector('.xo-hero-unicorn')
+  if (unicornEl) unicornEl.style.opacity = '0'
+
   const script = doc.createElement('script')
   script.src = 'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@2.1.6/dist/unicornStudio.umd.js'
   script.onload = () => {
     if (win.UnicornStudio) {
       win.UnicornStudio.init({ scale: 1, dpi: 1.5 })
     }
-    runOverlayEntrance(win, overlay, navbar)
+    // Fade in the animated background once SDK is ready
+    if (unicornEl && win.gsap) {
+      win.gsap.to(unicornEl, { opacity: 1, duration: 1.2, ease: 'power2.inOut' })
+    } else if (unicornEl) {
+      unicornEl.style.transition = 'opacity 1.2s ease'
+      unicornEl.style.opacity = '1'
+    }
   }
   doc.body.appendChild(script)
 }
@@ -427,18 +439,7 @@ function runOverlayEntrance(win, overlay, navbar) {
       navbar,
       { opacity: 0, y: -20 },
       { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
-      0.3
-    )
-  }
-
-  // Background layer
-  const visibleBg = overlay.querySelector('.xo-hero-unicorn')
-  if (visibleBg) {
-    tl.fromTo(
-      visibleBg,
-      { opacity: 0 },
-      { opacity: 1, duration: 1.6, ease: 'power2.inOut', delay: 0.3 },
-      0
+      0.1
     )
   }
 
@@ -446,27 +447,27 @@ function runOverlayEntrance(win, overlay, navbar) {
     overlay.querySelector('.xo-hero-subtitle'),
     { opacity: 0, y: 30 },
     { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' },
-    1.0
+    0.3
   )
 
   tl.fromTo(
     overlay.querySelectorAll('.xo-hero-service-item'),
     { opacity: 0, y: 16 },
     { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: 'power2.out' },
-    1.3
+    0.5
   )
 
   tl.fromTo(
     overlay.querySelector('.xo-hero-scroll-indicator'),
     { opacity: 0, y: 16 },
     { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-    1.4
+    0.6
   )
 
   tl.fromTo(
     overlay.querySelector('.xo-hero-badge-card'),
     { opacity: 0, y: 24 },
     { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
-    1.4
+    0.6
   )
 }
